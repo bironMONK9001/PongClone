@@ -19,9 +19,15 @@ playerPaddle = pygame.Rect(0, 200, 30, 150)
 enemyPaddle = pygame.Rect(610, 200, 30,150)
 ball = pygame.Rect(270, 190, 25, 25)
 
-#MOVEMENT
+#Paddle Movement
 moveUp = False
 moveDown = False
+
+#Ball Movement
+UPLEFT = True
+UPRIGHT = False
+DOWNLEFT = False
+DOWNRIGHT = False
 
 MOVESPEED = 6
 
@@ -59,6 +65,20 @@ while True:
 	if moveDown and playerPaddle.top < WINDOWHEIGHT - 150:
 		playerPaddle.top += MOVESPEED
 
+	#Ball Movement
+	if UPLEFT:
+		ball.top -= MOVESPEED
+		ball.left -= MOVESPEED
+	if UPRIGHT:
+		ball.top += MOVESPEED
+		ball.left -= MOVESPEED
+	if DOWNLEFT:
+		ball.top += MOVESPEED 
+		ball.left-= MOVESPEED
+	if DOWNRIGHT:
+		ball.top += MOVESPEED
+		ball.left += MOVESPEED
+	
 	#Draw game objects
 	pygame.draw.rect(windowSurface, WHITE, playerPaddle)
 	pygame.draw.rect(windowSurface, WHITE, enemyPaddle)
