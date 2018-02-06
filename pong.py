@@ -30,6 +30,7 @@ DOWNLEFT = False
 DOWNRIGHT = False
 
 MOVESPEED = 6
+BALLSPEED = 1
 
 #Game loop
 while True:
@@ -64,20 +65,43 @@ while True:
 		playerPaddle.top -= MOVESPEED
 	if moveDown and playerPaddle.top < WINDOWHEIGHT - 150:
 		playerPaddle.top += MOVESPEED
+	
+	#Collision detection
+	if ball.top < 0:
+		if UPLEFT == True:
+			UPLEFT = False
+			DOWNLEFT = True
+			BALLSPEED += 1
+		if UPRIGHT == True:
+			UPRIGHT = False
+			DOWNRIGHT = True
+			BALLSPEED += 1
+	if ball.top > WINDOWHEIGHT:
+		if DOWNLEFT == True:
+			DOWNLEFT = False 
+			UPLEFT = True
+			BALLSPEED += 1
+		if DOWNRIGHT == True:
+			DOWNRIGHT = False
+			UPRIGHT = True
+			BALLSPEED += 1
+	
+	if ball.left < 0 or ball.left > WINDOWWIDTH:
+		BALLSPEED = 0
 
 	#Ball Movement
 	if UPLEFT:
-		ball.top -= MOVESPEED
-		ball.left -= MOVESPEED
+		ball.top -= BALLSPEED
+		ball.left -= BALLSPEED
 	if UPRIGHT:
-		ball.top += MOVESPEED
-		ball.left -= MOVESPEED
+		ball.top += BALLSPEED
+		ball.left -= BALLSPEED
 	if DOWNLEFT:
-		ball.top += MOVESPEED 
-		ball.left-= MOVESPEED
+		ball.top += BALLSPEED 
+		ball.left-= BALLSPEED
 	if DOWNRIGHT:
-		ball.top += MOVESPEED
-		ball.left += MOVESPEED
+		ball.top += BALLSPEED
+		ball.left += BALLSPEED
 	
 	#Draw game objects
 	pygame.draw.rect(windowSurface, WHITE, playerPaddle)
