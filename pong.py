@@ -65,6 +65,13 @@ while True:
 		playerPaddle.top -= MOVESPEED
 	if moveDown and playerPaddle.top < WINDOWHEIGHT - 150:
 		playerPaddle.top += MOVESPEED
+
+	#Move Enemy
+	if ball.top < enemyPaddle.top and ball.left > WINDOWWIDTH / 4:
+		enemyPaddle.top -= MOVESPEED
+	if ball.top > enemyPaddle.bottom and ball.left > WINDOWWIDTH / 4:
+		enemyPaddle.top += MOVESPEED
+	
 	
 	#Collision detection
 	if ball.top < 0:
