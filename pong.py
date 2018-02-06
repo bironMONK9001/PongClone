@@ -76,7 +76,7 @@ while True:
 			UPRIGHT = False
 			DOWNRIGHT = True
 			BALLSPEED += 1
-	if ball.top > WINDOWHEIGHT:
+	if ball.top > WINDOWHEIGHT - 25:
 		if DOWNLEFT == True:
 			DOWNLEFT = False 
 			UPLEFT = True
@@ -86,16 +86,34 @@ while True:
 			UPRIGHT = True
 			BALLSPEED += 1
 	
-	if ball.left < 0 or ball.left > WINDOWWIDTH:
+	#Scoring
+	if ball.left < 0 or ball.left > WINDOWWIDTH - 25:
 		BALLSPEED = 0
+
+	#Paddle Collision
+	if playerPaddle.colliderect(ball):
+		if DOWNLEFT == True:
+			DOWNLEFT = False
+			DOWNRIGHT = True
+		if UPLEFT == True:
+			UPLEFT = False
+			UPRIGHT = True
+
+	if enemyPaddle.colliderect(ball):
+		if DOWNRIGHT== True:
+			DOWNRIGHT= False
+			DOWNLEFT= True
+		if UPRIGHT== True:
+			UPRIGHT= False
+			UPLEFT= True
 
 	#Ball Movement
 	if UPLEFT:
 		ball.top -= BALLSPEED
 		ball.left -= BALLSPEED
 	if UPRIGHT:
-		ball.top += BALLSPEED
-		ball.left -= BALLSPEED
+		ball.top -= BALLSPEED
+		ball.left += BALLSPEED
 	if DOWNLEFT:
 		ball.top += BALLSPEED 
 		ball.left-= BALLSPEED
